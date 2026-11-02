@@ -1,0 +1,261 @@
+/* decor.css - additive decorations (flowers, butterflies, sparkles) */
+
+.section-page,
+#Birthday,
+#memorable-message,
+.final-page {
+    position: relative;
+}
+
+/* ---------- Butterflies ---------- */
+.butterfly-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.butterfly {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 46px;
+    opacity: 0.9;
+    will-change: transform;
+}
+
+.butterfly svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 3px 4px rgba(156, 52, 77, 0.18));
+}
+
+.butterfly .wings {
+    transform-origin: 50px 40px;
+    animation: flap 0.45s ease-in-out infinite alternate;
+}
+
+@keyframes flap {
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(0.3); }
+}
+
+.butterfly.b1 { animation: flyA 34s linear infinite; }
+.butterfly.b2 { width: 34px; animation: flyB 42s linear infinite; animation-delay: -12s; }
+.butterfly.b3 { width: 40px; animation: flyA 50s linear infinite; animation-delay: -28s; }
+.butterfly.b4 { width: 30px; animation: flyB 38s linear infinite; animation-delay: -5s; }
+
+@keyframes flyA {
+    0%   { transform: translate(-12vw, 75vh) rotate(15deg); }
+    20%  { transform: translate(18vw, 48vh) rotate(-10deg); }
+    40%  { transform: translate(42vw, 62vh) rotate(12deg); }
+    60%  { transform: translate(65vw, 28vh) rotate(-12deg); }
+    80%  { transform: translate(88vw, 40vh) rotate(10deg); }
+    100% { transform: translate(115vw, 18vh) rotate(-6deg); }
+}
+
+@keyframes flyB {
+    0%   { transform: translate(112vw, 25vh) scaleX(-1) rotate(10deg); }
+    25%  { transform: translate(78vw, 55vh) scaleX(-1) rotate(-12deg); }
+    50%  { transform: translate(50vw, 38vh) scaleX(-1) rotate(8deg); }
+    75%  { transform: translate(22vw, 70vh) scaleX(-1) rotate(-10deg); }
+    100% { transform: translate(-14vw, 52vh) scaleX(-1) rotate(6deg); }
+}
+
+/* ---------- Flower corners ---------- */
+.corner-flower {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.85;
+}
+
+.corner-flower svg { width: 100%; height: auto; display: block; }
+
+.corner-flower.tl { top: 10px; left: 6px; width: 90px; transform: rotate(-12deg); }
+.corner-flower.br { bottom: 10px; right: 6px; width: 110px; transform: rotate(14deg); }
+.corner-flower.tr { top: 40px; right: 14px; width: 54px; transform: rotate(20deg); }
+.corner-flower.bl { bottom: 40px; left: 14px; width: 60px; transform: rotate(-18deg); }
+
+.corner-flower svg { animation: sway 6s ease-in-out infinite alternate; transform-origin: 50% 90%; }
+.corner-flower.br svg { animation-duration: 7.5s; }
+.corner-flower.tr svg { animation-duration: 5s; }
+
+@keyframes sway {
+    from { transform: rotate(-4deg); }
+    to   { transform: rotate(4deg); }
+}
+
+/* keep real content above the decorations */
+.section-page > *:not(.corner-flower),
+#Birthday > *:not(.corner-flower),
+#memorable-message > *:not(.corner-flower) {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- Heading flower divider ---------- */
+.flower-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 6px auto 4px;
+}
+
+.flower-divider::before,
+.flower-divider::after {
+    content: "";
+    height: 1px;
+    width: 60px;
+    background: linear-gradient(90deg, transparent, #e6a7b6);
+}
+
+.flower-divider::after { transform: scaleX(-1); }
+.flower-divider svg { width: 22px; height: 22px; }
+.flower-divider svg:nth-child(2) { width: 30px; height: 30px; }
+
+/* ---------- Home page flowers ---------- */
+.hero-flowers {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero-flowers.left { left: 2%; top: 14%; width: clamp(60px, 11vw, 130px); }
+.hero-flowers.right { right: 3%; top: 10%; width: clamp(50px, 9vw, 110px); }
+.hero-flowers.mid { left: 38%; bottom: 6%; width: clamp(40px, 6vw, 70px); }
+.hero-flowers svg { width: 100%; height: auto; animation: sway 6s ease-in-out infinite alternate; }
+
+/* ---------- Sparkles ---------- */
+.sparkle {
+    position: absolute;
+    pointer-events: none;
+    color: #e58ca3;
+    animation: twinkle 3s ease-in-out infinite;
+    z-index: 0;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.6) rotate(0deg); }
+    50%      { opacity: 0.95; transform: scale(1.1) rotate(25deg); }
+}
+
+/* ---------- Footer flower row ---------- */
+.footer-flowers {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    padding: 10px 0 0;
+    background: #f5c1ce;
+}
+
+.footer-flowers svg { width: 26px; height: 26px; animation: sway 4s ease-in-out infinite alternate; }
+.footer-flowers svg:nth-child(even) { animation-delay: -1.5s; width: 20px; height: 20px; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 760px) {
+    .corner-flower.tl { width: 60px; }
+    .corner-flower.br { width: 72px; }
+    .corner-flower.tr, .corner-flower.bl { width: 38px; }
+    .butterfly { width: 34px; }
+    .butterfly.b3, .butterfly.b4 { display: none; }
+    .flower-divider::before, .flower-divider::after { width: 34px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .butterfly { animation: none !important; left: 70%; top: 20%; }
+    .butterfly .wings, .corner-flower svg, .hero-flowers svg,
+    .footer-flowers svg, .sparkle { animation: none !important; }
+}
+
+/* =====================================================
+   MORE DECOR
+===================================================== */
+
+/* ---------- Floating hearts ---------- */
+.heart-layer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 4; }
+.float-heart {
+    position: absolute; bottom: -30px;
+    color: #f08fa9; opacity: 0;
+    animation: heartRise linear infinite;
+}
+@keyframes heartRise {
+    0%   { transform: translateY(0) translateX(0) scale(.6); opacity: 0; }
+    10%  { opacity: .75; }
+    50%  { transform: translateY(-55vh) translateX(18px) scale(1); }
+    90%  { opacity: .5; }
+    100% { transform: translateY(-110vh) translateX(-14px) scale(.8); opacity: 0; }
+}
+
+/* ---------- Tulip garden on home ---------- */
+.tulip-garden {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 120px; display: flex; align-items: flex-end; justify-content: space-around;
+    pointer-events: none; z-index: 0; padding: 0 2%;
+}
+.tulip-garden svg { height: 100%; width: auto; max-height: 120px; transform-origin: 50% 100%;
+    animation: sway 5s ease-in-out infinite alternate; }
+.tulip-garden svg:nth-child(2n) { height: 78%; animation-delay: -1.5s; }
+.tulip-garden svg:nth-child(3n) { height: 60%; animation-delay: -3s; }
+.hero .tiny-note, .hero .rose-decor { z-index: 1; }
+
+/* ---------- Washi tape + stickers ---------- */
+.washi {
+    position: absolute; top: -10px; left: 50%; width: 80px; height: 22px;
+    transform: translateX(-50%) rotate(-3deg);
+    background: repeating-linear-gradient(45deg, rgba(247,203,214,.85) 0 8px, rgba(255,255,255,.7) 8px 16px);
+    box-shadow: 0 1px 3px rgba(130,57,75,.15);
+    pointer-events: none; z-index: 2;
+}
+.polaroid, .letter-paper, .court-paper, .birthday-letter, .message-card { position: relative; }
+.polaroid:nth-child(even) .washi { transform: translateX(-50%) rotate(4deg); width: 70px; }
+.sticker-flower {
+    position: absolute; right: -10px; bottom: -12px; width: 36px;
+    pointer-events: none; z-index: 2; transform: rotate(15deg);
+    filter: drop-shadow(0 2px 3px rgba(130,57,75,.2));
+}
+.sticker-flower svg { width: 100%; height: auto; display: block; }
+
+/* ---------- Bee ---------- */
+.bee { position: fixed; left: 0; top: 0; width: 30px; pointer-events: none; z-index: 5;
+    animation: beeFly 26s ease-in-out infinite; }
+.bee svg { width: 100%; display: block; }
+.bee .bw { transform-origin: 50% 60%; animation: buzz .08s linear infinite alternate; }
+@keyframes buzz { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+@keyframes beeFly {
+    0%   { transform: translate(10vw, 30vh); }
+    15%  { transform: translate(30vw, 20vh) rotate(8deg); }
+    30%  { transform: translate(55vw, 45vh) rotate(-10deg); }
+    45%  { transform: translate(40vw, 70vh) rotate(6deg); }
+    60%  { transform: translate(75vw, 60vh) rotate(-6deg); }
+    80%  { transform: translate(85vw, 25vh) rotate(10deg); }
+    100% { transform: translate(10vw, 30vh); }
+}
+
+/* ---------- Tap/click sparkle burst ---------- */
+.tap-pop { position: fixed; pointer-events: none; z-index: 9999; font-size: 16px;
+    animation: tapPop .9s ease-out forwards; }
+@keyframes tapPop {
+    0%   { opacity: 1; transform: translate(0,0) scale(.6); }
+    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.2) rotate(40deg); }
+}
+
+/* ---------- Soft touches ---------- */
+.bucket-list li::marker { content: ""; }
+.section-heading h2 { text-shadow: 0 2px 0 rgba(255,255,255,.7); }
+.envelope:hover .envelope-icon { animation: wiggle .5s ease; }
+@keyframes wiggle { 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
+.reason-card:hover { background: linear-gradient(145deg, #fbd3dc, #fff0ec); }
+
+@media (max-width: 760px) {
+    .tulip-garden { height: 80px; }
+    .bee { display: none; }
+    .washi { width: 60px; height: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .float-heart, .bee, .bee .bw, .tulip-garden svg { animation: none !important; }
+    .float-heart { display: none; }
+}
